@@ -30,13 +30,13 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        animais = new javax.swing.JButton();
+        cadadotante = new javax.swing.JButton();
         minhasad = new javax.swing.JButton();
         sair = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        animais1 = new javax.swing.JButton();
+        cadanimais = new javax.swing.JButton();
         minhasad1 = new javax.swing.JButton();
         minhasad2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,10 +47,11 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(114, 62, 33));
         jLabel1.setText("Instituto ALBA");
 
-        animais.setBackground(new java.awt.Color(114, 62, 33));
-        animais.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        animais.setForeground(new java.awt.Color(255, 255, 255));
-        animais.setText("Cadastrar Adotantes");
+        cadadotante.setBackground(new java.awt.Color(114, 62, 33));
+        cadadotante.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cadadotante.setForeground(new java.awt.Color(255, 255, 255));
+        cadadotante.setText("Cadastrar Adotantes");
+        cadadotante.addActionListener(this::cadadotanteActionPerformed);
 
         minhasad.setBackground(new java.awt.Color(114, 62, 33));
         minhasad.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -62,14 +63,13 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
         sair.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         sair.setForeground(new java.awt.Color(255, 255, 255));
         sair.setText("SAIR");
+        sair.addActionListener(this::sairActionPerformed);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetofinal/aaa.jpg"))); // NOI18N
-        jLabel3.setText("jLabel3");
-
-        animais1.setBackground(new java.awt.Color(114, 62, 33));
-        animais1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        animais1.setForeground(new java.awt.Color(255, 255, 255));
-        animais1.setText("Cadastrar Animais");
+        cadanimais.setBackground(new java.awt.Color(114, 62, 33));
+        cadanimais.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cadanimais.setForeground(new java.awt.Color(255, 255, 255));
+        cadanimais.setText("Cadastrar Animais");
+        cadanimais.addActionListener(this::cadanimaisActionPerformed);
 
         minhasad1.setBackground(new java.awt.Color(114, 62, 33));
         minhasad1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -83,67 +83,68 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
         minhasad2.setText("Sobre o projeto");
         minhasad2.addActionListener(this::minhasad2ActionPerformed);
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetofinal/Captura de tela 2026-11-23 100356.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(sair, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cadadotante)
+                    .addComponent(cadanimais)
+                    .addComponent(minhasad)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(minhasad1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(sair, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(minhasad2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(minhasad)
-                            .addComponent(animais1)
-                            .addComponent(minhasad1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(animais, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(minhasad2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(154, Short.MAX_VALUE))
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addComponent(jLabel1)))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(animais, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cadadotante, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(animais1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cadanimais, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(minhasad, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(minhasad1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(minhasad2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sair, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(189, 189, 189))))
+                        .addComponent(minhasad2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(sair, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(289, 289, 289))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
 
         pack();
@@ -151,15 +152,53 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
 
     private void minhasadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minhasadActionPerformed
         // TODO add your handling code here:
+        
+        RealizarAdocoes radocoes = new RealizarAdocoes();
+
+        radocoes.setVisible(true);
+        dispose();
     }//GEN-LAST:event_minhasadActionPerformed
 
     private void minhasad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minhasad1ActionPerformed
         // TODO add your handling code here:
+        
+        Animais animais = new Animais();
+
+        animais.setVisible(true);
+        dispose();
     }//GEN-LAST:event_minhasad1ActionPerformed
 
     private void minhasad2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minhasad2ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
+        
+        SobreProjeto sprojeto = new SobreProjeto();
+
+        sprojeto.setVisible(true);
+        dispose();
     }//GEN-LAST:event_minhasad2ActionPerformed
+
+    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_sairActionPerformed
+
+    private void cadadotanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadadotanteActionPerformed
+        // TODO add your handling code 
+        
+        CadastroAdotante cadote = new CadastroAdotante();
+
+        cadote.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_cadadotanteActionPerformed
+
+    private void cadanimaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadanimaisActionPerformed
+        // TODO add your handling code here:
+        
+        CadastroAnimal canimal = new CadastroAnimal();
+
+        canimal.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_cadanimaisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,10 +226,10 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton animais;
-    private javax.swing.JButton animais1;
+    private javax.swing.JButton cadadotante;
+    private javax.swing.JButton cadanimais;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton minhasad;
     private javax.swing.JButton minhasad1;

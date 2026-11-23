@@ -4,6 +4,8 @@
  */
 package projetofinal;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Aluno
@@ -34,7 +36,6 @@ public class CadastroAnimal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         nome = new javax.swing.JTextField();
-        atualizar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -45,7 +46,6 @@ public class CadastroAnimal extends javax.swing.JFrame {
         idade = new javax.swing.JSpinner();
         status = new javax.swing.JComboBox<>();
         cadastrar = new javax.swing.JButton();
-        excluir1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         sexo = new javax.swing.JComboBox<>();
@@ -65,12 +65,6 @@ public class CadastroAnimal extends javax.swing.JFrame {
         jLabel2.setText("Nome:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
         jPanel1.add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 209, -1));
-
-        atualizar.setBackground(new java.awt.Color(114, 62, 33));
-        atualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        atualizar.setForeground(new java.awt.Color(255, 255, 255));
-        atualizar.setText("Atualizar");
-        jPanel1.add(atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 110, 32));
 
         jLabel3.setBackground(new java.awt.Color(114, 62, 33));
         jLabel3.setFont(new java.awt.Font("Sitka Text", 1, 36)); // NOI18N
@@ -107,13 +101,6 @@ public class CadastroAnimal extends javax.swing.JFrame {
         cadastrar.addActionListener(this::cadastrarActionPerformed);
         jPanel1.add(cadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 110, 32));
 
-        excluir1.setBackground(new java.awt.Color(114, 62, 33));
-        excluir1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        excluir1.setForeground(new java.awt.Color(255, 255, 255));
-        excluir1.setText("Excluir");
-        excluir1.addActionListener(this::excluir1ActionPerformed);
-        jPanel1.add(excluir1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 91, 32));
-
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 40));
 
@@ -136,14 +123,28 @@ public class CadastroAnimal extends javax.swing.JFrame {
 
     private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
         // TODO add your handling code here:
+        
+       String n = nome.getText();
+       String e = especie.getText();
+       String r = raca.getText();
+       String i = idade.getValue().toString();
+       int ii = Integer.parseInt(i);
+       String s = sexo.getSelectedItem().toString();
+       String st = status.getSelectedItem().toString();
+       
+       Animal animal = new Animal( n, e, r, ii,  s, st);
+       JOptionPane.showMessageDialog(null, "nome"+ n +"especie"+ e +"raca"+ r +"idade"+ i +"sexo"+ s +"status"+ st );
+       //cadastro realizado.
+       
     }//GEN-LAST:event_cadastrarActionPerformed
-
-    private void excluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluir1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_excluir1ActionPerformed
 
     private void voltarloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarloginActionPerformed
         // TODO add your handling code here:
+        
+        TelaDeInicioAdm tiadm = new TelaDeInicioAdm();
+
+        tiadm.setVisible(true);
+        dispose();
     }//GEN-LAST:event_voltarloginActionPerformed
 
     /**
@@ -172,11 +173,9 @@ public class CadastroAnimal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton atualizar;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cadastrar;
     private javax.swing.JTextField especie;
-    private javax.swing.JButton excluir1;
     private javax.swing.JSpinner idade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -4,12 +4,14 @@
  */
 package projetofinal;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Aluno
  */
 public class Login extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
 
     /**
@@ -31,7 +33,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        entrarlog = new javax.swing.JButton();
+        entrar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -49,11 +51,12 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(119, 62, 13));
         jLabel2.setText("Login");
 
-        entrarlog.setBackground(new java.awt.Color(114, 62, 33));
-        entrarlog.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        entrarlog.setForeground(new java.awt.Color(255, 255, 255));
-        entrarlog.setText("Entrar");
-        entrarlog.setBorder(null);
+        entrar.setBackground(new java.awt.Color(114, 62, 33));
+        entrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        entrar.setForeground(new java.awt.Color(255, 255, 255));
+        entrar.setText("Entrar");
+        entrar.setBorder(null);
+        entrar.addActionListener(this::entrarActionPerformed);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(94, 46, 19));
@@ -70,6 +73,7 @@ public class Login extends javax.swing.JFrame {
         criarconta.setForeground(new java.awt.Color(114, 62, 32));
         criarconta.setText("Criar Conta");
         criarconta.setBorder(null);
+        criarconta.addActionListener(this::criarcontaActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,7 +92,7 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
-                                .addComponent(entrarlog, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(95, 95, 95)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,8 +103,8 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(usuario)
                             .addComponent(senha, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(criarconta)))
+                        .addGap(220, 220, 220)
+                        .addComponent(criarconta, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(194, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -124,7 +128,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(entrarlog, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(criarconta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(77, Short.MAX_VALUE))
@@ -143,6 +147,40 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void criarcontaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarcontaActionPerformed
+        // TODO add your handling code here:
+
+        CriarConta criarc = new CriarConta();
+
+        criarc.setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_criarcontaActionPerformed
+
+    private void entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarActionPerformed
+        // TODO add your handling code here:
+        String user = usuario.getText();
+        String senhas = new String(senha.getPassword());
+        
+        if (user.equals("barbara")  && senhas.equals("123") ) {
+
+            TelaDeInicioAdm teladm = new TelaDeInicioAdm();
+           
+            teladm.setVisible(true);
+            dispose();
+
+        } else if (user.equals("banco") && senhas.equals("123")) {
+
+            TelaDeInicioAdote teladote = new TelaDeInicioAdote();
+
+            teladote.setVisible(true);
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "ERROOO");
+        }
+
+    }//GEN-LAST:event_entrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,7 +209,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton criarconta;
-    private javax.swing.JButton entrarlog;
+    private javax.swing.JButton entrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

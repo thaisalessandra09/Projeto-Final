@@ -123,6 +123,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Animais"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="animaisActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="minhasad">
           <Properties>
@@ -154,6 +157,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="SAIR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sairActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="minhasad1">
           <Properties>

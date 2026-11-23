@@ -33,7 +33,7 @@ public class CriarConta extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        nomecompleto = new javax.swing.JTextField();
+        nome = new javax.swing.JTextField();
         usuario = new javax.swing.JTextField();
         senha = new javax.swing.JPasswordField();
         confirmarsenha = new javax.swing.JPasswordField();
@@ -65,6 +65,7 @@ public class CriarConta extends javax.swing.JFrame {
         criarconta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         criarconta.setForeground(new java.awt.Color(255, 255, 255));
         criarconta.setText("Cadastrar");
+        criarconta.addActionListener(this::criarcontaActionPerformed);
 
         voltarlogin.setBackground(new java.awt.Color(248, 230, 219));
         voltarlogin.setText("Voltar para o Login");
@@ -102,7 +103,7 @@ public class CriarConta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nomecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(confirmarsenha, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 127, Short.MAX_VALUE))
@@ -125,7 +126,7 @@ public class CriarConta extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(nomecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,7 +162,16 @@ public class CriarConta extends javax.swing.JFrame {
 
     private void voltarloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarloginActionPerformed
         // TODO add your handling code here:
+        
+        Login log = new Login();
+
+        log.setVisible(true);
+        dispose();
     }//GEN-LAST:event_voltarloginActionPerformed
+
+    private void criarcontaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarcontaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_criarcontaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,7 +209,7 @@ public class CriarConta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nomecompleto;
+    private javax.swing.JTextField nome;
     private javax.swing.JPasswordField senha;
     private javax.swing.JTextField usuario;
     private javax.swing.JButton voltarlogin;

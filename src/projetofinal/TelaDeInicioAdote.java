@@ -54,6 +54,7 @@ public class TelaDeInicioAdote extends javax.swing.JFrame {
         animais.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         animais.setForeground(new java.awt.Color(255, 255, 255));
         animais.setText("Animais");
+        animais.addActionListener(this::animaisActionPerformed);
 
         minhasad.setBackground(new java.awt.Color(114, 62, 33));
         minhasad.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -65,6 +66,7 @@ public class TelaDeInicioAdote extends javax.swing.JFrame {
         sair.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         sair.setForeground(new java.awt.Color(255, 255, 255));
         sair.setText("SAIR");
+        sair.addActionListener(this::sairActionPerformed);
 
         minhasad1.setBackground(new java.awt.Color(114, 62, 33));
         minhasad1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -123,11 +125,36 @@ public class TelaDeInicioAdote extends javax.swing.JFrame {
 
     private void minhasadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minhasadActionPerformed
         // TODO add your handling code here:
+        
+        MinhasAdocoes madocoes = new MinhasAdocoes();
+
+        madocoes.setVisible(true);
+        dispose();
     }//GEN-LAST:event_minhasadActionPerformed
 
     private void minhasad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minhasad1ActionPerformed
         // TODO add your handling code here:
+        
+        SobreProjeto sprojeto = new SobreProjeto();
+
+        sprojeto.setVisible(true);
+        dispose();
     }//GEN-LAST:event_minhasad1ActionPerformed
+
+    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_sairActionPerformed
+
+    private void animaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_animaisActionPerformed
+        // TODO add your handling code here:
+        
+         
+        Animais animais = new Animais();
+
+        animais.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_animaisActionPerformed
 
     /**
      * @param args the command line arguments

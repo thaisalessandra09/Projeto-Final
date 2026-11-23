@@ -67,6 +67,7 @@ public class MinhasAdocoes extends javax.swing.JFrame {
         teladeinicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         teladeinicio.setForeground(new java.awt.Color(255, 255, 255));
         teladeinicio.setText("Tela de Início");
+        teladeinicio.addActionListener(this::teladeinicioActionPerformed);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetofinal/ACARA.jpeg"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -175,6 +176,15 @@ public class MinhasAdocoes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void teladeinicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teladeinicioActionPerformed
+        // TODO add your handling code here:
+        
+        TelaDeInicioAdote tiadote = new TelaDeInicioAdote();
+
+        tiadote.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_teladeinicioActionPerformed
 
     /**
      * @param args the command line arguments

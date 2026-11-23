@@ -152,6 +152,11 @@ public class RealizarAdocoes extends javax.swing.JFrame {
 
     private void voltarloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarloginActionPerformed
         // TODO add your handling code here:
+        
+        TelaDeInicioAdm tiadm = new TelaDeInicioAdm();
+
+        tiadm.setVisible(true);
+        dispose();
     }//GEN-LAST:event_voltarloginActionPerformed
 
     /**
