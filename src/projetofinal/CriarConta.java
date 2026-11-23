@@ -37,8 +37,8 @@ public class CriarConta extends javax.swing.JFrame {
         usuario = new javax.swing.JTextField();
         senha = new javax.swing.JPasswordField();
         confirmarsenha = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        criarconta = new javax.swing.JButton();
+        voltarlogin = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -53,23 +53,23 @@ public class CriarConta extends javax.swing.JFrame {
         jLabel1.setText("Criar Conta");
 
         jLabel2.setForeground(new java.awt.Color(114, 62, 33));
-        jLabel2.setText("Cadastre-se para adotar ou");
+        jLabel2.setText("Cadastre-se para acessar o sistema");
 
         jLabel3.setForeground(new java.awt.Color(114, 62, 33));
-        jLabel3.setText("acompanhar suas adoções");
+        jLabel3.setText("e acompanhar suas adoções");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setText("Nome Completo:");
 
-        jButton1.setBackground(new java.awt.Color(114, 62, 33));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cadastrar");
+        criarconta.setBackground(new java.awt.Color(114, 62, 33));
+        criarconta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        criarconta.setForeground(new java.awt.Color(255, 255, 255));
+        criarconta.setText("Cadastrar");
 
-        jButton2.setBackground(new java.awt.Color(248, 230, 219));
-        jButton2.setText("Voltar para o Login");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        voltarlogin.setBackground(new java.awt.Color(248, 230, 219));
+        voltarlogin.setText("Voltar para o Login");
+        voltarlogin.setBorder(null);
+        voltarlogin.addActionListener(this::voltarloginActionPerformed);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel5.setText("Usuário:");
@@ -108,9 +108,9 @@ public class CriarConta extends javax.swing.JFrame {
                 .addGap(0, 127, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(criarconta, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(voltarlogin))
                 .addGap(180, 180, 180))
         );
         jPanel1Layout.setVerticalGroup(
@@ -139,9 +139,9 @@ public class CriarConta extends javax.swing.JFrame {
                     .addComponent(confirmarsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(criarconta, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(voltarlogin)
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
@@ -159,9 +159,9 @@ public class CriarConta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void voltarloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarloginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_voltarloginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,8 +190,7 @@ public class CriarConta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField confirmarsenha;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton criarconta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -203,5 +202,6 @@ public class CriarConta extends javax.swing.JFrame {
     private javax.swing.JTextField nomecompleto;
     private javax.swing.JPasswordField senha;
     private javax.swing.JTextField usuario;
+    private javax.swing.JButton voltarlogin;
     // End of variables declaration//GEN-END:variables
 }
