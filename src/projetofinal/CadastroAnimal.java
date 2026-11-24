@@ -34,11 +34,8 @@ public class CadastroAnimal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        nome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         raca = new javax.swing.JTextField();
@@ -50,6 +47,7 @@ public class CadastroAnimal extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         sexo = new javax.swing.JComboBox<>();
         voltarlogin = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -61,11 +59,6 @@ public class CadastroAnimal extends javax.swing.JFrame {
         jLabel1.setText("Status:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Nome:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
-        jPanel1.add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 209, -1));
-
         jLabel3.setBackground(new java.awt.Color(114, 62, 33));
         jLabel3.setFont(new java.awt.Font("Sitka Text", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(114, 62, 33));
@@ -75,10 +68,6 @@ public class CadastroAnimal extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Raça:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Espécie:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Idade:");
@@ -114,7 +103,11 @@ public class CadastroAnimal extends javax.swing.JFrame {
         voltarlogin.setText("Voltar para tela inicial");
         voltarlogin.setBorder(null);
         voltarlogin.addActionListener(this::voltarloginActionPerformed);
-        jPanel1.add(voltarlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
+        jPanel1.add(voltarlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setText("Espécie:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 450));
 
@@ -124,7 +117,7 @@ public class CadastroAnimal extends javax.swing.JFrame {
     private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
         // TODO add your handling code here:
         
-       String n = nome.getText();
+     
        String e = especie.getText();
        String r = raca.getText();
        String i = idade.getValue().toString();
@@ -132,8 +125,8 @@ public class CadastroAnimal extends javax.swing.JFrame {
        String s = sexo.getSelectedItem().toString();
        String st = status.getSelectedItem().toString();
        
-       Animal animal = new Animal( n, e, r, ii,  s, st);
-       JOptionPane.showMessageDialog(null, "nome"+ n +"especie"+ e +"raca"+ r +"idade"+ i +"sexo"+ s +"status"+ st );
+       Animal animal = new Animal(  e, r, ii,  s, st);
+       JOptionPane.showMessageDialog(null, "especie"+ e +"raca"+ r +"idade"+ i +"sexo"+ s +"status"+ st );
        //cadastro realizado.
        
     }//GEN-LAST:event_cadastrarActionPerformed
@@ -178,17 +171,15 @@ public class CadastroAnimal extends javax.swing.JFrame {
     private javax.swing.JTextField especie;
     private javax.swing.JSpinner idade;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField nome;
     private javax.swing.JTextField raca;
     private javax.swing.JComboBox<String> sexo;
     private javax.swing.JComboBox<String> status;

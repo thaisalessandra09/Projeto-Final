@@ -34,8 +34,6 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        nome = new javax.swing.JTextField();
         atualizar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -43,14 +41,16 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         raca = new javax.swing.JTextField();
-        especie = new javax.swing.JTextField();
+        id = new javax.swing.JTextField();
         idade = new javax.swing.JSpinner();
         status = new javax.swing.JComboBox<>();
-        excluir1 = new javax.swing.JButton();
+        verificarid = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         sexo = new javax.swing.JComboBox<>();
-        voltarlogin = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        especie1 = new javax.swing.JTextField();
+        excluir2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -62,16 +62,11 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
         jLabel1.setText("Status:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Nome:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
-        jPanel1.add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 209, -1));
-
         atualizar.setBackground(new java.awt.Color(114, 62, 33));
         atualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         atualizar.setForeground(new java.awt.Color(255, 255, 255));
         atualizar.setText("Atualizar");
-        jPanel1.add(atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 110, 32));
+        jPanel1.add(atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 110, 32));
 
         jLabel3.setBackground(new java.awt.Color(114, 62, 33));
         jLabel3.setFont(new java.awt.Font("Sitka Text", 1, 36)); // NOI18N
@@ -84,8 +79,8 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Espécie:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+        jLabel5.setText("ID:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Idade:");
@@ -95,18 +90,18 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
         jLabel7.setText("Sexo:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
         jPanel1.add(raca, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 209, -1));
-        jPanel1.add(especie, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 209, -1));
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 209, -1));
         jPanel1.add(idade, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 100, -1));
 
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponível", "Indisponível", " " }));
         jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, -1, -1));
 
-        excluir1.setBackground(new java.awt.Color(114, 62, 33));
-        excluir1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        excluir1.setForeground(new java.awt.Color(255, 255, 255));
-        excluir1.setText("Excluir");
-        excluir1.addActionListener(this::excluir1ActionPerformed);
-        jPanel1.add(excluir1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 91, 32));
+        verificarid.setBackground(new java.awt.Color(114, 62, 33));
+        verificarid.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        verificarid.setForeground(new java.awt.Color(255, 255, 255));
+        verificarid.setText("Verificar ID");
+        verificarid.addActionListener(this::verificaridActionPerformed);
+        jPanel1.add(verificarid, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 110, 32));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 40));
@@ -117,29 +112,30 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
         sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Macho", "Fêmea" }));
         jPanel1.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 100, -1));
 
-        voltarlogin.setBackground(new java.awt.Color(248, 230, 219));
-        voltarlogin.setText("Voltar para tela inicial");
-        voltarlogin.setBorder(null);
-        voltarlogin.addActionListener(this::voltarloginActionPerformed);
-        jPanel1.add(voltarlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setText("Espécie:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+        jPanel1.add(especie1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 209, -1));
+
+        excluir2.setBackground(new java.awt.Color(114, 62, 33));
+        excluir2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        excluir2.setForeground(new java.awt.Color(255, 255, 255));
+        excluir2.setText("Excluir");
+        excluir2.addActionListener(this::excluir2ActionPerformed);
+        jPanel1.add(excluir2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, 91, 32));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void excluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluir1ActionPerformed
+    private void verificaridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificaridActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_excluir1ActionPerformed
+    }//GEN-LAST:event_verificaridActionPerformed
 
-    private void voltarloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarloginActionPerformed
+    private void excluir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluir2ActionPerformed
         // TODO add your handling code here:
-        
-        TelaDeInicioAdm tiadm = new TelaDeInicioAdm();
-
-        tiadm.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_voltarloginActionPerformed
+    }//GEN-LAST:event_excluir2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,24 +165,24 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atualizar;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JTextField especie;
-    private javax.swing.JButton excluir1;
+    private javax.swing.JTextField especie1;
+    private javax.swing.JButton excluir2;
+    private javax.swing.JTextField id;
     private javax.swing.JSpinner idade;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField nome;
     private javax.swing.JTextField raca;
     private javax.swing.JComboBox<String> sexo;
     private javax.swing.JComboBox<String> status;
-    private javax.swing.JButton voltarlogin;
+    private javax.swing.JButton verificarid;
     // End of variables declaration//GEN-END:variables
 }

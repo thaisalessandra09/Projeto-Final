@@ -31,7 +31,7 @@ public class RealizarAdocoes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        nomecompleto = new javax.swing.JTextField();
+        idanimal = new javax.swing.JTextField();
         usuario = new javax.swing.JTextField();
         senha = new javax.swing.JPasswordField();
         confirmarsenha = new javax.swing.JPasswordField();
@@ -51,7 +51,7 @@ public class RealizarAdocoes extends javax.swing.JFrame {
         jLabel1.setText("Realizar Adoções");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("Animal:");
+        jLabel4.setText("ID animal: ");
 
         criarconta.setBackground(new java.awt.Color(114, 62, 33));
         criarconta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -86,7 +86,7 @@ public class RealizarAdocoes extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(nomecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(idanimal, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
@@ -114,7 +114,7 @@ public class RealizarAdocoes extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(nomecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idanimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -187,13 +187,13 @@ public class RealizarAdocoes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField confirmarsenha;
     private javax.swing.JButton criarconta;
+    private javax.swing.JTextField idanimal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nomecompleto;
     private javax.swing.JPasswordField senha;
     private javax.swing.JTextField usuario;
     private javax.swing.JButton voltarlogin;

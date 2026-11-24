@@ -9,22 +9,12 @@ public class Animal {
     String nome ,especie , raca  , sexo , status ;
     int idade ;
 
-    public Animal(String nome, String especie, String raca, int idade, String sexo, String status) {
-        this.nome = nome;
+    public Animal(String especie, String raca, int idade, String sexo, String status) {
         this.especie = especie;
         this.raca = raca;
         this.idade = idade;
         this.sexo = sexo;
         this.status = status;
-    }
-    
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getEspecie() {
