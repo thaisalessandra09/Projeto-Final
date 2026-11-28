@@ -1,9 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package projetofinal;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,7 +34,6 @@ public class CadastroAnimal extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -41,23 +41,20 @@ public class CadastroAnimal extends javax.swing.JFrame {
         raca = new javax.swing.JTextField();
         especie = new javax.swing.JTextField();
         idade = new javax.swing.JSpinner();
-        status = new javax.swing.JComboBox<>();
         cadastrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        sexo = new javax.swing.JComboBox<>();
+        porte = new javax.swing.JComboBox<>();
         voltarlogin = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        sexo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(248, 230, 219));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Status:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
 
         jLabel3.setBackground(new java.awt.Color(114, 62, 33));
         jLabel3.setFont(new java.awt.Font("Sitka Text", 1, 36)); // NOI18N
@@ -67,21 +64,18 @@ public class CadastroAnimal extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Raça:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Idade:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel7.setText("Sexo:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
-        jPanel1.add(raca, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 209, -1));
-        jPanel1.add(especie, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 209, -1));
-        jPanel1.add(idade, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 100, -1));
-
-        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponível", "Indisponível", " " }));
-        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, -1, -1));
+        jLabel7.setText("Porte:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
+        jPanel1.add(raca, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 209, -1));
+        jPanel1.add(especie, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 209, -1));
+        jPanel1.add(idade, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 100, -1));
 
         cadastrar.setBackground(new java.awt.Color(114, 62, 33));
         cadastrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -96,8 +90,8 @@ public class CadastroAnimal extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(114, 62, 33));
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 560, -1));
 
-        sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Macho", "Fêmea" }));
-        jPanel1.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 100, -1));
+        porte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pequeno", "Medio", "Grande" }));
+        jPanel1.add(porte, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 100, -1));
 
         voltarlogin.setBackground(new java.awt.Color(248, 230, 219));
         voltarlogin.setText("Voltar para tela inicial");
@@ -107,7 +101,14 @@ public class CadastroAnimal extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Espécie:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setText("Sexo:");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, -1, -1));
+
+        sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Macho", "Fêmea" }));
+        jPanel1.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, 100, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 450));
 
@@ -117,17 +118,53 @@ public class CadastroAnimal extends javax.swing.JFrame {
     private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
         // TODO add your handling code here:
         
-     
-       String e = especie.getText();
-       String r = raca.getText();
-       String i = idade.getValue().toString();
-       int ii = Integer.parseInt(i);
-       String s = sexo.getSelectedItem().toString();
-       String st = status.getSelectedItem().toString();
-       
-       Animal animal = new Animal(  e, r, ii,  s, st);
-       JOptionPane.showMessageDialog(null, "especie"+ e +"raca"+ r +"idade"+ i +"sexo"+ s +"status"+ st );
-       //cadastro realizado.
+        String Especie = especie.getText();
+        String Raca = raca.getText();
+        int Idade = Integer.parseInt(idade.getValue().toString());
+        String Porte = porte.getSelectedItem().toString();
+        String Sexo = sexo.getSelectedItem().toString();
+
+        
+        if (Especie.isEmpty() || Raca.isEmpty() || Porte.isEmpty() || Sexo.isEmpty() ) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!");
+            return;
+        }
+
+        if (!Especie.equalsIgnoreCase("Cachorro") && !Especie.equalsIgnoreCase("Gato")) {
+            JOptionPane.showMessageDialog(this, "A espécie deve ser Cachorro ou Gato!");
+            return;
+        }
+
+        // Envia os dados para o MySQL
+        try {
+            // Abre a conexão com o banco de dados
+            java.sql.Connection conn = Conexao.getConexao();
+            if (conn == null) {
+                conn = new Conexao().getConexao();
+            }
+            
+            String sql = "{CALL Cadastrar_Animal(?, ?, ?, ?, ?)}";
+            CallableStatement cs = conn.prepareCall(sql);
+            cs.setString(1, Especie);
+            cs.setString(2, Raca);
+            cs.setInt(3, Idade);
+            cs.setString(4, Porte);
+            cs.setString(5, Sexo);
+
+            cs.execute();
+            JOptionPane.showMessageDialog(this, "Animal cadastrado com sucesso!");
+
+            // Limpa os campos após cadastrar
+            especie.setText("");
+            raca.setText("");
+            idade.setValue(0);
+            porte.setSelectedIndex(0);
+            sexo.setSelectedIndex(0);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar animal: " + e.getMessage());
+        }
+
        
     }//GEN-LAST:event_cadastrarActionPerformed
 
@@ -170,7 +207,7 @@ public class CadastroAnimal extends javax.swing.JFrame {
     private javax.swing.JButton cadastrar;
     private javax.swing.JTextField especie;
     private javax.swing.JSpinner idade;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -180,9 +217,9 @@ public class CadastroAnimal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JComboBox<String> porte;
     private javax.swing.JTextField raca;
     private javax.swing.JComboBox<String> sexo;
-    private javax.swing.JComboBox<String> status;
     private javax.swing.JButton voltarlogin;
     // End of variables declaration//GEN-END:variables
 }

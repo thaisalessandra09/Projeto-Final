@@ -4,6 +4,12 @@
  */
 package projetofinal;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Aluno
@@ -17,6 +23,13 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
      */
     public AtualizarExcluirAdotante() {
         initComponents();
+        nomecompleto.setEnabled(false);
+        data.setEnabled(false);
+        sexo.setEnabled(false);
+        telefone.setEnabled(false);
+        endereco.setEnabled(false);
+        atualizar.setEnabled(false);
+        excluir.setEnabled(false);
     }
 
     /**
@@ -31,7 +44,7 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        CPF = new javax.swing.JTextField();
+        nomecompleto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -46,7 +59,8 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
         excluir1 = new javax.swing.JButton();
         data = new javax.swing.JFormattedTextField();
         verificarCpf = new javax.swing.JButton();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        CPF = new javax.swing.JFormattedTextField();
+        Inicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +99,7 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
         atualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         atualizar.setForeground(new java.awt.Color(255, 255, 255));
         atualizar.setText("Atualizar");
+        atualizar.addActionListener(this::atualizarActionPerformed);
 
         excluir.setBackground(new java.awt.Color(114, 62, 33));
         excluir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -111,10 +126,16 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
         verificarCpf.addActionListener(this::verificarCpfActionPerformed);
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            CPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+
+        Inicio.setBackground(new java.awt.Color(114, 62, 33));
+        Inicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Inicio.setForeground(new java.awt.Color(255, 255, 255));
+        Inicio.setText("Tela de Inicio");
+        Inicio.addActionListener(this::InicioActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,14 +149,14 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(CPF, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(verificarCpf))
                             .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(CPF, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(nomecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -155,7 +176,9 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(atualizar)
                                 .addGap(18, 18, 18)
-                                .addComponent(excluir))))
+                                .addComponent(excluir)
+                                .addGap(18, 18, 18)
+                                .addComponent(Inicio))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel3)))
@@ -176,11 +199,11 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(verificarCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(CPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -200,7 +223,8 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(108, 108, 108)
                 .addComponent(jLabel6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -236,11 +260,189 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
 
     private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
         // TODO add your handling code here:
+        
+        String cpf = CPF.getText().trim().replaceAll("[^0-9]", "");
+        if (cpf.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite o CPF do adotante que deseja excluir!");
+            return;
+        }
+
+        int confirma = JOptionPane.showConfirmDialog(
+            this,
+            "Tem certeza que deseja excluir este adotante?",
+            "Confirmar Exclusão",
+            JOptionPane.YES_NO_OPTION
+        );
+        if (confirma != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+            Connection conn = Conexao.getConexao();
+            if (conn == null) {
+                conn = new Conexao().getConexao();
+            }
+
+            CallableStatement cs = conn.prepareCall("{CALL Excluir_Adotante(?)}");
+            cs.setString(1, cpf);
+
+            cs.execute();
+            JOptionPane.showMessageDialog(this, "Adotante excluído com sucesso!");
+
+            // Limpa e bloqueia os campos novamente
+            CPF.setText("");
+            nomecompleto.setText("");
+            data.setText("");
+            sexo.setSelectedIndex(0);
+            telefone.setText("");
+            endereco.setText("");
+
+            CPF.setEnabled(true);
+            nomecompleto.setEnabled(false);
+            data.setEnabled(false);
+            sexo.setEnabled(false);
+            telefone.setEnabled(false);
+            endereco.setEnabled(false);
+            atualizar.setEnabled(false);
+            excluir.setEnabled(false);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Não foi possível excluir (verifique se o adotante já possui adoção registrada): " + e.getMessage());
+        }
     }//GEN-LAST:event_excluirActionPerformed
 
     private void verificarCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificarCpfActionPerformed
         // TODO add your handling code here:
+        
+        String cpfTexto = CPF.getText().trim().replaceAll("[^0-9]", "");
+        if (cpfTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite o CPF do adotante!");
+            return;
+        }
+
+        try {
+            Connection conn = Conexao.getConexao();
+            if (conn == null) {
+                conn = new Conexao().getConexao();
+            }
+
+            String sql = "SELECT Nome, Data_Nascimento, Sexo, Telefone, Endereco FROM Adotante WHERE CPF = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, cpfTexto);
+            ResultSet resultado = ps.executeQuery();
+
+            if (resultado.next()) {
+                String nomeBanco = resultado.getString("Nome");
+                String dataBanco = resultado.getString("Data_Nascimento"); // Vem como yyyy-MM-dd
+                String sexoBanco = resultado.getString("Sexo");
+                String telefoneBanco = resultado.getString("Telefone");
+                String enderecoBanco = resultado.getString("Endereco");
+
+                String[] partesData = dataBanco.split("-");
+                String dataFormatada = partesData[2] + "/" + partesData[1] + "/" + partesData[0];
+
+                nomecompleto.setText(nomeBanco);
+                data.setText(dataFormatada);
+                sexo.setSelectedItem(sexoBanco);
+                telefone.setText(telefoneBanco);
+                endereco.setText(enderecoBanco);
+
+                JOptionPane.showMessageDialog(this,
+                    "Adotante encontrado! Campos liberados para edição:\n\n"
+                    + "Nome: " + nomeBanco + "\n"
+                    + "Data de Nascimento: " + dataFormatada + "\n"
+                    + "Sexo: " + sexoBanco + "\n"
+                    + "Telefone: " + telefoneBanco + "\n"
+                    + "Endereço: " + enderecoBanco
+                );
+
+                // Libera os campos para edição e trava o CPF
+                CPF.setEnabled(false);
+                nomecompleto.setEnabled(true);
+                data.setEnabled(true);
+                sexo.setEnabled(true);
+                telefone.setEnabled(true);
+                endereco.setEnabled(true);
+                atualizar.setEnabled(true);
+                excluir.setEnabled(true);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Adotante não encontrado com este CPF!");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao buscar adotante: " + e.getMessage());
+        }
     }//GEN-LAST:event_verificarCpfActionPerformed
+
+    private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
+        
+        String cpf = CPF.getText().trim().replaceAll("[^0-9]", "");
+        String Nome = nomecompleto.getText().trim();
+        String Data = data.getText().trim();
+        String Sexo = sexo.getSelectedItem().toString();
+        String Telefone = telefone.getText().trim();
+        String Endereco = endereco.getText().trim();
+
+        if (cpf.isEmpty() || Nome.isEmpty() || Data.isEmpty() || Telefone.isEmpty() || Endereco.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!");
+            return;
+        }
+
+        String[] partesData = Data.split("/");
+        if (partesData.length != 3) {
+            JOptionPane.showMessageDialog(this, "Digite a data no formato dd/mm/aaaa!");
+            return;
+        }
+        String dataBanco = partesData[2] + "-" + partesData[1] + "-" + partesData[0];
+
+        try {
+            Connection conn = Conexao.getConexao();
+            if (conn == null) {
+                conn = new Conexao().getConexao();
+            }
+
+            CallableStatement cs = conn.prepareCall("{CALL Atualizar_Adotante(?, ?, ?, ?, ?, ?)}");
+            cs.setString(1, cpf);
+            cs.setString(2, Nome);
+            cs.setString(3, dataBanco);
+            cs.setString(4, Sexo);
+            cs.setString(5, Telefone);
+            cs.setString(6, Endereco);
+
+            cs.execute();
+            JOptionPane.showMessageDialog(this, "Dados do adotante atualizados com sucesso!");
+
+            // Limpa e bloqueia os campos novamente
+            CPF.setText("");
+            nomecompleto.setText("");
+            data.setText("");
+            sexo.setSelectedIndex(0);
+            telefone.setText("");
+            endereco.setText("");
+
+            CPF.setEnabled(true);
+            nomecompleto.setEnabled(false);
+            data.setEnabled(false);
+            sexo.setEnabled(false);
+            telefone.setEnabled(false);
+            endereco.setEnabled(false);
+            atualizar.setEnabled(false);
+            excluir.setEnabled(false);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao atualizar adotante: " + e.getMessage());
+        }
+        
+    }//GEN-LAST:event_atualizarActionPerformed
+
+    private void InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioActionPerformed
+        // TODO add your handling code here:
+        TelaDeInicioAdm tiadm = new TelaDeInicioAdm();
+
+        tiadm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_InicioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,13 +470,13 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CPF;
+    private javax.swing.JFormattedTextField CPF;
+    private javax.swing.JButton Inicio;
     private javax.swing.JButton atualizar;
     private javax.swing.JFormattedTextField data;
     private javax.swing.JTextField endereco;
     private javax.swing.JButton excluir;
     private javax.swing.JButton excluir1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -284,6 +486,7 @@ public class AtualizarExcluirAdotante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField nomecompleto;
     private javax.swing.JComboBox<String> sexo;
     private javax.swing.JTextField telefone;
     private javax.swing.JButton verificarCpf;

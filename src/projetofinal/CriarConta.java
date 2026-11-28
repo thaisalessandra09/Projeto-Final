@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package projetofinal;
 
 /**
@@ -110,9 +106,12 @@ public class CriarConta extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(criarconta, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(voltarlogin))
-                .addGap(180, 180, 180))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(voltarlogin)
+                        .addGap(189, 189, 189))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(criarconta, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(179, 179, 179))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +169,54 @@ public class CriarConta extends javax.swing.JFrame {
     }//GEN-LAST:event_voltarloginActionPerformed
 
     private void criarcontaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarcontaActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:                                           
+        String n = nome.getText();
+        String u = usuario.getText();
+        String s1 = new String(senha.getPassword());
+        String s2 = new String(confirmarsenha.getPassword());
+
+        if (n.isEmpty() || u.isEmpty() || s1.isEmpty() || s2.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+            return;
+        }
+
+        if (!s1.equals(s2)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "As senhas não são iguais!");
+            return;
+        }
+
+       try {
+            // Abre a conexão com o banco de dados
+            java.sql.Connection conn = Conexao.getConexao();
+            if (conn == null) {
+                conn = new Conexao().getConexao();
+            }
+
+            // Insere o novo Usuario na tabela Usuario (o ID de 4 dígitos é gerado automático)
+            String sql = "INSERT INTO Usuario (Nome, Usuario, Senha) VALUES (?, ?, ?)";
+            java.sql.PreparedStatement ps = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, n);
+            ps.setString(2, u);
+            ps.setString(3, s1);
+            ps.executeUpdate();
+
+            // Guarda o ID e o Nome na Sessao para a próxima tela saber quem entrou
+            java.sql.ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                Sessao.idUsuarioLogado = rs.getInt(1);
+            }
+            Sessao.nomeUsuarioLogado = n;
+            Sessao.tipoPerfil = "ADOTANTE";
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Conta criada com sucesso!");
+
+            //  Vai direto para o login
+            new Login().setVisible(true);
+            dispose();
+
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Erro ao criar conta (usuário já pode existir): " + e.getMessage());
+        }
     }//GEN-LAST:event_criarcontaActionPerformed
 
     /**

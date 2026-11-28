@@ -13,7 +13,8 @@ import javax.swing.JOptionPane;
 public class Login extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
-
+    public static String usuarioLogado = "";
+    public static String nomeLogado = "";
     /**
      * Creates new form Login
      */
@@ -42,7 +43,6 @@ public class Login extends javax.swing.JFrame {
         criarconta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(550, 440));
 
         jPanel1.setBackground(new java.awt.Color(248, 230, 219));
 
@@ -162,24 +162,59 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String user = usuario.getText();
         String senhas = new String(senha.getPassword());
-        
-        if (user.equals("barbara")  && senhas.equals("123") ) {
 
-            TelaDeInicioAdm teladm = new TelaDeInicioAdm();
-           
-            teladm.setVisible(true);
-            dispose();
-
-        } else if (user.equals("banco") && senhas.equals("123")) {
-
-            TelaDeInicioAdote teladote = new TelaDeInicioAdote();
-
-            teladote.setVisible(true);
-            dispose();
-        }else{
-            JOptionPane.showMessageDialog(null, "ERROOO");
+        if (user.isEmpty() || senhas.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Preencha o usuário e a senha!");
+            return;
         }
 
+        try {
+            // Chamar a conexão com o banco de dados MySQL
+            java.sql.Connection conn = new Conexao().getConexao();
+
+            // Chama o procedimento Fazer_Login criado no banco de dados
+            String sql = "{CALL Fazer_Login(?, ?)}";
+            java.sql.CallableStatement cs = conn.prepareCall(sql);
+            cs.setString(1, user);
+            cs.setString(2, senhas);
+
+            // Executa a consulta e lê o resultado retornado pelo procedimento
+            java.sql.ResultSet rs = cs.executeQuery();
+
+            if (rs.next()) {
+                String perfil = rs.getString("Tipo_Perfil");
+
+                if ("ADM".equals(perfil)) {
+                    // Salva os dados do Administrador na Sessao
+                    Sessao.idUsuarioLogado = rs.getInt("ID_Usuario");
+                    Sessao.nomeUsuarioLogado = rs.getString("Nome");
+                    Sessao.tipoPerfil = "ADM";
+
+                    // Abre a tela inicial do Administrador
+                    new TelaDeInicioAdm().setVisible(true);
+                    dispose();
+
+                } else if ("ADOTANTE".equals(perfil)) {
+                    // Salva os dados do Usuário na Sessao
+                    Sessao.idUsuarioLogado = rs.getInt("ID_Usuario");
+                    Sessao.nomeUsuarioLogado = rs.getString("Nome");
+                    Sessao.tipoPerfil = "ADOTANTE";
+                    Login.usuarioLogado = usuario.getText().trim();
+                    Login.nomeLogado = rs.getString("Nome");
+
+                    // Abre a tela inicial do Usuário/Adotante
+                    new TelaDeInicioAdote().setVisible(true);
+                    dispose();
+
+                } else {
+                    // Caso a procedure retorne 'INVALIDO'
+                    javax.swing.JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos!");
+                }
+            }
+
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Erro ao conectar com o banco: " + e.getMessage());
+        }
     }//GEN-LAST:event_entrarActionPerformed
 
     /**

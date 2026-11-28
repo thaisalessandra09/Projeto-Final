@@ -3,7 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projetofinal;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Aluno
@@ -17,6 +22,66 @@ public class MinhasAdocoes extends javax.swing.JFrame {
      */
     public MinhasAdocoes() {
         initComponents();
+        
+        usuario.setText(Login.usuarioLogado);
+        nome.setText(Login.nomeLogado);
+
+        usuario.setEditable(false);
+        nome.setEditable(false);
+
+        carregarAdocoes(Login.usuarioLogado);
+    }
+    
+    // Construtor que recebe os dados do usuário logado
+    public MinhasAdocoes(String UsuarioLogado, String NomeLogado) {
+        initComponents();
+        
+        usuario.setText(UsuarioLogado);
+        nome.setText(NomeLogado);
+        
+        usuario.setEditable(false);
+        nome.setEditable(false);
+        
+        carregarAdocoes(UsuarioLogado);
+    }
+
+    private void carregarAdocoes(String UsuarioLogado) {
+        DefaultTableModel Modelo = (DefaultTableModel) tabela.getModel();
+        Modelo.setRowCount(0); // Limpa as linhas em branco da tabela
+
+        try {
+            Connection conn = Conexao.getConexao();
+            if (conn == null) {
+                conn = new Conexao().getConexao();
+            }
+
+            String sql = "SELECT a.Especie, a.Raca, ad.Data_Adocao, a.Status_Animal "
+                       + "FROM Adocao ad "
+                       + "INNER JOIN Animal a ON ad.ID_Animal = a.ID_Animal "
+                       + "INNER JOIN Usuario u ON ad.ID_Usuario = u.ID_Usuario "
+                       + "WHERE u.Usuario = ? "
+                       + "ORDER BY ad.Data_Adocao DESC";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, UsuarioLogado);
+            ResultSet resultado = ps.executeQuery();
+
+            while (resultado.next()) {
+                String Animal = resultado.getString("Especie") + " - " + resultado.getString("Raca");
+                
+                // Converte yyyy-MM-dd do MySQL para dd/MM/yyyy na tabela
+                String DataBanco = resultado.getString("Data_Adocao");
+                String[] PartesData = DataBanco.split("-");
+                String DataFormatada = PartesData[2] + "/" + PartesData[1] + "/" + PartesData[0];
+                
+                String Status = resultado.getString("Status_Animal");
+
+                Modelo.addRow(new Object[]{Animal, DataFormatada, Status});
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar adoções: " + e.getMessage());
+        }
     }
 
     /**
@@ -34,9 +99,8 @@ public class MinhasAdocoes extends javax.swing.JFrame {
         usuario = new javax.swing.JTextField();
         nome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         teladeinicio = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -51,7 +115,7 @@ public class MinhasAdocoes extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Minhas Adoções");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -61,16 +125,13 @@ public class MinhasAdocoes extends javax.swing.JFrame {
                 "Animal", "Data", "Status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela);
 
         teladeinicio.setBackground(new java.awt.Color(114, 62, 33));
         teladeinicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         teladeinicio.setForeground(new java.awt.Color(255, 255, 255));
         teladeinicio.setText("Tela de Início");
         teladeinicio.addActionListener(this::teladeinicioActionPerformed);
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetofinal/ACARA.jpeg"))); // NOI18N
-        jLabel3.setText("jLabel3");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Usuário:");
@@ -115,8 +176,7 @@ public class MinhasAdocoes extends javax.swing.JFrame {
                     .addComponent(teladeinicio)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(186, 186, 186)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -136,23 +196,17 @@ public class MinhasAdocoes extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)))
+                .addGap(42, 42, 42)
+                .addComponent(jLabel2)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(teladeinicio, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,14 +268,13 @@ public class MinhasAdocoes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField nome;
+    private javax.swing.JTable tabela;
     private javax.swing.JButton teladeinicio;
     private javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables

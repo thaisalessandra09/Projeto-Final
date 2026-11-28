@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projetofinal;
-
+import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +20,38 @@ public class Animais extends javax.swing.JFrame {
      */
     public Animais() {
         initComponents();
+        carregarTabelaAnimais(); // Carrega os animais do banco assim que a tela abre
+    }
+
+    // Método responsável por buscar os animais no MySQL e preencher a jTable1
+    private void carregarTabelaAnimais() {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0); // Limpa as linhas em branco da tabela antes de preencher
+
+        try {
+            Connection conn = new Conexao().getConexao();
+
+            String sql = "SELECT ID_Animal, Especie, Raca, Idade, Porte, Sexo, Status_Animal FROM Animal";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            // Adiciona cada animal encontrado na ordem exata das 7 colunas da tabela
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getString("Especie"),       // Coluna 1: Espécie
+                    rs.getString("Raca"),          // Coluna 2: Raça
+                    rs.getInt("Idade"),            // Coluna 3: Idade
+                    rs.getString("Porte"),         // Coluna 4: Porte
+                    rs.getString("Sexo"),          // Coluna 5: Sexo
+                    rs.getString("Status_Animal"), // Coluna 6: Status
+                    rs.getInt("ID_Animal")         // Coluna 7: ID
+                });
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar animais: " + e.getMessage());
+        }
+    
     }
 
     /**
@@ -44,15 +77,15 @@ public class Animais extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Espécie", "Raça", "Idade", "Porte", "Status", "ID"
+                "Espécie", "Raça", "Idade", "Porte", "Sexo", "Status", "ID"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -61,6 +94,7 @@ public class Animais extends javax.swing.JFrame {
         pesquisa.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         pesquisa.setForeground(new java.awt.Color(255, 255, 255));
         pesquisa.setText("Atualizar");
+        pesquisa.addActionListener(this::pesquisaActionPerformed);
 
         jButton1.setBackground(new java.awt.Color(114, 62, 33));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -82,18 +116,20 @@ public class Animais extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(107, 107, 107))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(208, 208, 208)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(43, 43, 43)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2))
-                    .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(208, 208, 208)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,25 +163,27 @@ public class Animais extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        if (usuario.get.equals("barbara")) ) {
-
+                                                 
+        // Verifica na classe Sessao qual perfil está usando o sistema
+        if ("ADM".equals(Sessao.tipoPerfil)) {
+            // Se for Administrador, volta para o painel administrativo
             TelaDeInicioAdm teladm = new TelaDeInicioAdm();
-
             teladm.setVisible(true);
             dispose();
-
-        } else if (user.equals("banco") && senhas.equals("123")) {
-
+        } else {
+            // Se for Adotante, volta para a tela inicial do usuário
             TelaDeInicioAdote teladote = new TelaDeInicioAdote();
-
             teladote.setVisible(true);
             dispose();
-        }else{
-            JOptionPane.showMessageDialog(null, "ERROOO");
         }
-        // adm ou adote
+    
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
+        // TODO add your handling code here:
+        carregarTabelaAnimais();
+        JOptionPane.showMessageDialog(this, "Lista de animais atualizada!");
+    }//GEN-LAST:event_pesquisaActionPerformed
 
     /**
      * @param args the command line arguments

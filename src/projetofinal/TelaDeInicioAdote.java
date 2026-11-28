@@ -126,10 +126,10 @@ public class TelaDeInicioAdote extends javax.swing.JFrame {
     private void minhasadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minhasadActionPerformed
         // TODO add your handling code here:
         
-        MinhasAdocoes madocoes = new MinhasAdocoes();
-
-        madocoes.setVisible(true);
-        dispose();
+       MinhasAdocoes ma = new MinhasAdocoes();
+ma.setVisible(true);
+dispose();
+        
     }//GEN-LAST:event_minhasadActionPerformed
 
     private void minhasad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minhasad1ActionPerformed

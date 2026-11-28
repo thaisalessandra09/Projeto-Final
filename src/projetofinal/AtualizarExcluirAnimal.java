@@ -4,7 +4,13 @@
  */
 package projetofinal;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -19,6 +25,14 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
      */
     public AtualizarExcluirAnimal() {
         initComponents();
+        
+        especie.setEnabled(false);
+        raca.setEnabled(false);
+        idade.setEnabled(false);
+        sexo.setEnabled(false);
+        status.setEnabled(false);
+        atualizar.setEnabled(false);
+        excluir.setEnabled(false);
     }
 
     /**
@@ -32,7 +46,7 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
 
         buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        Especie = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         atualizar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -49,93 +63,306 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         sexo = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        especie1 = new javax.swing.JTextField();
-        excluir2 = new javax.swing.JButton();
+        especie = new javax.swing.JTextField();
+        excluir = new javax.swing.JButton();
+        Inicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(248, 230, 219));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Especie.setBackground(new java.awt.Color(248, 230, 219));
+        Especie.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Status:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
+        Especie.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
 
         atualizar.setBackground(new java.awt.Color(114, 62, 33));
         atualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         atualizar.setForeground(new java.awt.Color(255, 255, 255));
         atualizar.setText("Atualizar");
-        jPanel1.add(atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 110, 32));
+        atualizar.addActionListener(this::atualizarActionPerformed);
+        Especie.add(atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 110, 32));
 
         jLabel3.setBackground(new java.awt.Color(114, 62, 33));
         jLabel3.setFont(new java.awt.Font("Sitka Text", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(114, 62, 33));
         jLabel3.setText("Atualizações de Animais");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+        Especie.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Raça:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
+        Especie.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("ID:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
+        Especie.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Idade:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
+        Especie.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setText("Sexo:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
-        jPanel1.add(raca, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 209, -1));
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 209, -1));
-        jPanel1.add(idade, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 100, -1));
+        Especie.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
+        Especie.add(raca, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 209, -1));
+        Especie.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 209, -1));
+        Especie.add(idade, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 100, -1));
 
-        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponível", "Indisponível", " " }));
-        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, -1, -1));
+        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponível", "Adotado" }));
+        Especie.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, -1, -1));
 
         verificarid.setBackground(new java.awt.Color(114, 62, 33));
         verificarid.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         verificarid.setForeground(new java.awt.Color(255, 255, 255));
         verificarid.setText("Verificar ID");
         verificarid.addActionListener(this::verificaridActionPerformed);
-        jPanel1.add(verificarid, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 110, 32));
+        Especie.add(verificarid, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 110, 32));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 40));
+        Especie.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 40));
 
         jPanel4.setBackground(new java.awt.Color(114, 62, 33));
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 560, -1));
+        Especie.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 560, -1));
 
         sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Macho", "Fêmea" }));
-        jPanel1.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 100, -1));
+        sexo.addActionListener(this::sexoActionPerformed);
+        Especie.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 100, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Espécie:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
-        jPanel1.add(especie1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 209, -1));
+        Especie.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+        Especie.add(especie, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 209, -1));
 
-        excluir2.setBackground(new java.awt.Color(114, 62, 33));
-        excluir2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        excluir2.setForeground(new java.awt.Color(255, 255, 255));
-        excluir2.setText("Excluir");
-        excluir2.addActionListener(this::excluir2ActionPerformed);
-        jPanel1.add(excluir2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, 91, 32));
+        excluir.setBackground(new java.awt.Color(114, 62, 33));
+        excluir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        excluir.setForeground(new java.awt.Color(255, 255, 255));
+        excluir.setText("Excluir");
+        excluir.addActionListener(this::excluirActionPerformed);
+        Especie.add(excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, 91, 32));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 450));
+        Inicio.setBackground(new java.awt.Color(114, 62, 33));
+        Inicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Inicio.setForeground(new java.awt.Color(255, 255, 255));
+        Inicio.setText("Tela de Inicio");
+        Inicio.addActionListener(this::InicioActionPerformed);
+        Especie.add(Inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 360, -1, 30));
+
+        getContentPane().add(Especie, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void verificaridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificaridActionPerformed
         // TODO add your handling code here:
+        String Id = id.getText().trim();
+        if (Id.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite o ID do animal!");
+            return;
+        }      
+        try {
+            int idAnimal = Integer.parseInt(Id);
+            
+            java.sql.Connection conn = Conexao.getConexao();
+            if (conn == null) {
+                conn = new Conexao().getConexao();
+            }
+            
+
+            String sql = "SELECT Especie, Raca, Idade, Sexo, Status_Animal FROM Animal WHERE ID_Animal = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, idAnimal);
+            ResultSet resultado = ps.executeQuery();
+
+            if (resultado.next()) {
+                String especieBanco = resultado.getString("Especie");
+                String racaBanco = resultado.getString("Raca");
+                int idadeBanco = resultado.getInt("Idade");
+                String sexoBanco = resultado.getString("Sexo");
+                String statusBanco = resultado.getString("Status_Animal");
+
+              especie.setText(especieBanco);
+                raca.setText(racaBanco);
+                idade.setValue(idadeBanco);
+                sexo.setSelectedItem(sexoBanco);
+
+               if (statusBanco.equals("Disponivel")) {
+                    status.setSelectedItem("Disponível");
+                } else if (statusBanco.equals("Indisponivel")) {
+                    status.setSelectedItem("Indisponível");
+                } else {
+                    status.setSelectedItem("Adotado");
+                }
+
+                JOptionPane.showMessageDialog(this,
+                    "Animal encontrado! Campos liberados para edição:\n\n"
+                    + "Espécie: " + especieBanco + "\n"
+                    + "Raça: " + racaBanco + "\n"
+                    + "Idade: " + idadeBanco + " ano(s)\n"
+                    + "Sexo: " + sexoBanco + "\n"
+                    + "Status: " + status.getSelectedItem().toString()
+                );
+
+                // Libera os campos para edição e trava o ID
+                id.setEnabled(false);
+                especie.setEnabled(true);
+                raca.setEnabled(true);
+                idade.setEnabled(true);
+                sexo.setEnabled(true);
+                status.setEnabled(true);
+                atualizar.setEnabled(true);
+                excluir.setEnabled(true);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Animal não encontrado!");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "O ID deve ser um número inteiro!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao buscar animal: " + e.getMessage());
+        }
+        
     }//GEN-LAST:event_verificaridActionPerformed
 
-    private void excluir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluir2ActionPerformed
+    private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_excluir2ActionPerformed
+        
+        String idTexto = id.getText().trim();
+        if (idTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite o ID do animal que deseja excluir!");
+            return;
+        }
+
+        int confirma = JOptionPane.showConfirmDialog(
+            this,
+            "Tem certeza que deseja excluir este animal?",
+            "Confirmar Exclusão",
+            JOptionPane.YES_NO_OPTION
+        );
+        if (confirma != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+            int idAnimal = Integer.parseInt(idTexto);
+            Connection conn = Conexao.getConexao();
+            if (conn == null) {
+                conn = new Conexao().getConexao();
+            }
+
+            CallableStatement cs = conn.prepareCall("{CALL Excluir_Animal(?)}");
+            cs.setInt(1, idAnimal);
+            cs.execute();
+
+            JOptionPane.showMessageDialog(this, "Animal excluído com sucesso!");
+
+            // Limpa e bloqueia os campos novamente
+            id.setText("");
+            especie.setText("");
+            raca.setText("");
+            idade.setValue(0);
+            sexo.setSelectedIndex(0);
+            status.setSelectedIndex(0);
+
+            id.setEnabled(true);
+            especie.setEnabled(false);
+            raca.setEnabled(false);
+            idade.setEnabled(false);
+            sexo.setEnabled(false);
+            status.setEnabled(false);
+            atualizar.setEnabled(false);
+            excluir.setEnabled(false);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ID inválido!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Não foi possível excluir (verifique se o animal já possui adoção registrada): " + e.getMessage());
+        }
+    }//GEN-LAST:event_excluirActionPerformed
+
+    private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
+        // TODO add your handling code here:
+        
+        String idTexto = id.getText().trim();
+        String especieTexto = especie.getText().trim();
+        String racaTexto = raca.getText().trim();
+        int idadeValor = Integer.parseInt(idade.getValue().toString());
+        String sexoTexto = sexo.getSelectedItem().toString();
+        String statusTela = status.getSelectedItem().toString();
+        String statusBanco = statusTela
+                .replace("Disponível", "Disponivel")
+                .replace("Indisponível", "Indisponivel");
+
+        if (idTexto.isEmpty() || especieTexto.isEmpty() || racaTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!");
+            return;
+        }
+
+        if (!especieTexto.equalsIgnoreCase("Cachorro") && !especieTexto.equalsIgnoreCase("Gato")) {
+            JOptionPane.showMessageDialog(this, "A espécie deve ser Cachorro ou Gato!");
+            return;
+        }
+
+        if (idadeValor < 0) {
+            JOptionPane.showMessageDialog(this, "A idade não pode ser negativa!");
+            return;
+        }
+
+        try {
+            int idAnimal = Integer.parseInt(idTexto);
+            Connection conn = Conexao.getConexao();
+            if (conn == null) {
+                conn = new Conexao().getConexao();
+            }
+
+            CallableStatement cs = conn.prepareCall("{CALL Atualizar_Animal(?, ?, ?, ?, ?, ?)}");
+            cs.setInt(1, idAnimal);
+            cs.setString(2, especieTexto);
+            cs.setString(3, racaTexto);
+            cs.setInt(4, idadeValor);
+            cs.setString(5, sexoTexto);
+            cs.setString(6, statusBanco);
+
+            cs.execute();
+            JOptionPane.showMessageDialog(this, "Animal atualizado com sucesso!");
+
+            // Limpa e bloqueia os campos novamente
+            id.setText("");
+            especie.setText("");
+            raca.setText("");
+            idade.setValue(0);
+            sexo.setSelectedIndex(0);
+            status.setSelectedIndex(0);
+
+            id.setEnabled(true);
+            especie.setEnabled(false);
+            raca.setEnabled(false);
+            idade.setEnabled(false);
+            sexo.setEnabled(false);
+            status.setEnabled(false);
+            atualizar.setEnabled(false);
+            excluir.setEnabled(false);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ID inválido!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao atualizar animal: " + e.getMessage());
+        }
+    }//GEN-LAST:event_atualizarActionPerformed
+
+    private void InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioActionPerformed
+        // TODO add your handling code here:
+        TelaDeInicioAdm tiadm = new TelaDeInicioAdm();
+
+        tiadm.setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_InicioActionPerformed
+
+    private void sexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sexoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,10 +390,12 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Especie;
+    private javax.swing.JButton Inicio;
     private javax.swing.JButton atualizar;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JTextField especie1;
-    private javax.swing.JButton excluir2;
+    private javax.swing.JTextField especie;
+    private javax.swing.JButton excluir;
     private javax.swing.JTextField id;
     private javax.swing.JSpinner idade;
     private javax.swing.JLabel jLabel1;
@@ -176,7 +405,6 @@ public class AtualizarExcluirAnimal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

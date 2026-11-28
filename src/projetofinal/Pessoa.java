@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package projetofinal;
 
 public abstract class Pessoa {
-    
-    String nome , usuario , senha ;
+
+    String nome, usuario, senha;
 
     public String getNome() {
         return nome;
@@ -36,8 +32,7 @@ public abstract class Pessoa {
         this.nome = nome;
         this.usuario = usuario;
         this.senha = senha;
-        
+
     }
-    
-    
+
 }

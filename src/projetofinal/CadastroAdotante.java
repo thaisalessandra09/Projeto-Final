@@ -1,9 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package projetofinal;
 
+package projetofinal;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Aluno
@@ -17,6 +21,7 @@ public class CadastroAdotante extends javax.swing.JFrame {
      */
     public CadastroAdotante() {
         initComponents();
+        
     }
 
     /**
@@ -36,15 +41,15 @@ public class CadastroAdotante extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        telefone = new javax.swing.JTextField();
-        endereco = new javax.swing.JTextField();
+        TxtTelefone = new javax.swing.JTextField();
+        TxtEndereco = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         sexo = new javax.swing.JComboBox<>();
         atualizar = new javax.swing.JButton();
         excluir1 = new javax.swing.JButton();
         data = new javax.swing.JFormattedTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        txtCpf = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,7 +74,7 @@ public class CadastroAdotante extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setText("Telefone:");
 
-        telefone.addActionListener(this::telefoneActionPerformed);
+        TxtTelefone.addActionListener(this::TxtTelefoneActionPerformed);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Sexo:");
@@ -83,6 +88,7 @@ public class CadastroAdotante extends javax.swing.JFrame {
         atualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         atualizar.setForeground(new java.awt.Color(255, 255, 255));
         atualizar.setText("Cadastrar");
+        atualizar.addActionListener(this::atualizarActionPerformed);
 
         excluir1.setBackground(new java.awt.Color(114, 62, 33));
         excluir1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -97,7 +103,7 @@ public class CadastroAdotante extends javax.swing.JFrame {
         }
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -108,11 +114,7 @@ public class CadastroAdotante extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel3))
-                    .addComponent(jLabel9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -126,10 +128,10 @@ public class CadastroAdotante extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(TxtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(endereco, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(TxtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(excluir1))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,11 +141,15 @@ public class CadastroAdotante extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(nomecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel9)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(data))))
+                            .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -158,7 +164,7 @@ public class CadastroAdotante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -166,7 +172,7 @@ public class CadastroAdotante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,7 +184,7 @@ public class CadastroAdotante extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel9)
-                                    .addComponent(endereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(TxtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -205,9 +211,9 @@ public class CadastroAdotante extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void telefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneActionPerformed
+    private void TxtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtTelefoneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_telefoneActionPerformed
+    }//GEN-LAST:event_TxtTelefoneActionPerformed
 
     private void excluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluir1ActionPerformed
         // TODO add your handling code here:
@@ -218,6 +224,83 @@ public class CadastroAdotante extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_excluir1ActionPerformed
+
+    private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
+                                         
+        // Pega os dados e tira pontuações do CPF e telefone
+        String cpf = txtCpf.getText().replaceAll("[^0-9]", "");
+        String nome = nomecompleto.getText().trim();
+        String dataTxt = data.getText().trim(); 
+        String genero = sexo.getSelectedItem().toString();
+        String telefone = TxtTelefone.getText().replaceAll("[^0-9]", "");
+        String endereco = TxtEndereco.getText().trim();
+
+        
+        if (cpf.isEmpty() || nome.isEmpty() || dataTxt.isEmpty() || telefone.isEmpty() || endereco.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!");
+            return;
+        }
+
+        if (cpf.length() != 11) {
+            JOptionPane.showMessageDialog(this, "O CPF deve conter exatamente 11 dígitos!");
+            return;
+        }
+
+        //  Converte a data digitada (dd/MM/yyyy) para o formato do MySQL (yyyy-MM-dd)
+        java.sql.Date dataSql;
+        try {
+            DateTimeFormatter formatoBr = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dataLocal = LocalDate.parse(dataTxt, formatoBr);
+            dataSql = java.sql.Date.valueOf(dataLocal);
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Data de nascimento inválida! Use o formato dd/mm/aaaa.");
+            return;
+        }
+
+        // Envia os dados para a procedure Criar_Conta_Adotante no MySQL
+        try {
+            // Abre a conexão com o banco de dados
+            java.sql.Connection conn = Conexao.getConexao();
+            if (conn == null) {
+                conn = new Conexao().getConexao();
+            }
+
+            // Envia os dados para a procedure Criar_Conta_Adotante no MySQL
+            String sql = "{CALL Criar_Conta_Adotante(?, ?, ?, ?, ?, ?)}";
+            CallableStatement cs = conn.prepareCall(sql);
+            cs.setString(1, cpf);
+            cs.setString(2, nome);
+            cs.setDate(3, dataSql);
+            cs.setString(4, genero);
+            cs.setString(5, telefone);
+            cs.setString(6, endereco);
+
+            ResultSet rs = cs.executeQuery();
+
+            if (rs.next()) {
+                int idGerado = rs.getInt("ID_Adotante_Gerado");
+                String msg = rs.getString("Mensagem");
+                JOptionPane.showMessageDialog(this, msg + "\nID do Adotante: " + idGerado);
+                limparCampos();
+               
+            }
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar adotante: " + e.getMessage());
+        }
+    }
+
+    // limpa a tela após o cadastro
+    private void limparCampos() {
+        txtCpf.setText("");
+        nomecompleto.setText("");
+        data.setText("");
+        sexo.setSelectedIndex(0);
+        TxtTelefone.setText("");
+        TxtEndereco.setText("");
+    
+    }//GEN-LAST:event_atualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,11 +328,11 @@ public class CadastroAdotante extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField TxtEndereco;
+    private javax.swing.JTextField TxtTelefone;
     private javax.swing.JButton atualizar;
     private javax.swing.JFormattedTextField data;
-    private javax.swing.JTextField endereco;
     private javax.swing.JButton excluir1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -261,6 +344,6 @@ public class CadastroAdotante extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nomecompleto;
     private javax.swing.JComboBox<String> sexo;
-    private javax.swing.JTextField telefone;
+    private javax.swing.JFormattedTextField txtCpf;
     // End of variables declaration//GEN-END:variables
 }

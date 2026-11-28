@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package projetofinal;
 
 /**
@@ -36,6 +33,8 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
         cadanimais = new javax.swing.JButton();
         minhasad1 = new javax.swing.JButton();
         minhasad2 = new javax.swing.JButton();
+        AtualizarExcluirAnimais = new javax.swing.JButton();
+        AtualizarExcluirAdotante = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +81,18 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
         minhasad2.setText("Sobre o projeto");
         minhasad2.addActionListener(this::minhasad2ActionPerformed);
 
+        AtualizarExcluirAnimais.setBackground(new java.awt.Color(114, 62, 33));
+        AtualizarExcluirAnimais.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        AtualizarExcluirAnimais.setForeground(new java.awt.Color(255, 255, 255));
+        AtualizarExcluirAnimais.setText("Atualizar/Excluir Animais");
+        AtualizarExcluirAnimais.addActionListener(this::AtualizarExcluirAnimaisActionPerformed);
+
+        AtualizarExcluirAdotante.setBackground(new java.awt.Color(114, 62, 33));
+        AtualizarExcluirAdotante.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        AtualizarExcluirAdotante.setForeground(new java.awt.Color(255, 255, 255));
+        AtualizarExcluirAdotante.setText("Atualizar/Excluir Adotantes");
+        AtualizarExcluirAdotante.addActionListener(this::AtualizarExcluirAdotanteActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -90,18 +101,26 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cadadotante)
-                        .addGap(98, 98, 98)
-                        .addComponent(jLabel1))
-                    .addComponent(cadanimais)
-                    .addComponent(minhasad)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cadadotante)
+                            .addComponent(cadanimais)
+                            .addComponent(minhasad))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(jLabel1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(AtualizarExcluirAnimais)
+                                    .addComponent(AtualizarExcluirAdotante)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(minhasad1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(sair, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(minhasad2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,11 +134,18 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
                         .addGap(61, 61, 61)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(cadanimais, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cadanimais, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(minhasad, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(AtualizarExcluirAdotante, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(minhasad, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(minhasad1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(minhasad1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AtualizarExcluirAnimais, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(minhasad2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -191,6 +217,23 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_cadanimaisActionPerformed
 
+    private void AtualizarExcluirAnimaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarExcluirAnimaisActionPerformed
+        // TODO add your handling code here:
+        
+        AtualizarExcluirAnimal AtExAn = new AtualizarExcluirAnimal();
+
+       AtExAn.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_AtualizarExcluirAnimaisActionPerformed
+
+    private void AtualizarExcluirAdotanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarExcluirAdotanteActionPerformed
+        // TODO add your handling code here:
+        AtualizarExcluirAdotante AtExAd = new AtualizarExcluirAdotante();
+
+       AtExAd.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_AtualizarExcluirAdotanteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -217,6 +260,8 @@ public class TelaDeInicioAdm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AtualizarExcluirAdotante;
+    private javax.swing.JButton AtualizarExcluirAnimais;
     private javax.swing.JButton cadadotante;
     private javax.swing.JButton cadanimais;
     private javax.swing.JLabel jLabel1;
